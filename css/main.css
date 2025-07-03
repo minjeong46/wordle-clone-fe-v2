@@ -70,4 +70,34 @@ main {
     font-weight: bold;
     font-size: 24px;
     padding-bottom: 10px;
+    
 }
+
+@keyframes 두근 {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.2); 
+    }
+  }
+  
+  .bounce {
+    animation: 두근 0.5s ease-in-out;
+  }
+
+  @keyframes 흔들 {
+    0%, 100% { 
+        transform: translateX(0); 
+    }
+    25% { 
+        transform: translateX(-6px); 
+    }
+    75% { 
+        transform: translateX(6px); 
+    }
+  }
+
+  .shake {
+    animation: 흔들 0.4s ease-in-out;
+  }

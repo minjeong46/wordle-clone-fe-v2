@@ -42,23 +42,21 @@ function appStart() {
                 `.block-box__item[data-item='${rowCount}${i}']`
             );
 
-            
-
             const 입력_정답 = block.innerHTML;
             const 정답_글자 = 정답[i];
 
             if (입력_정답 === 정답_글자) {
-                block.style.backgroundColor = "#B49F3A";
-                block.style.color = "white";
+
+                block.style = "background-color:#B49F3A; color: white; transition: all 0.3s ease-in-out;"
 
                 document.querySelectorAll(`.key-box__item`).forEach((e)=>{
                     if(e.dataset.key === 정답_글자){
                         e.style.backgroundColor = "#B49F3A";
                         block.style.color = "white";
                     }
-
                 })
-                
+                block.classList.add("bounce");
+
                 맞은_수++;
             } else if (정답.includes(입력_정답)) {
                 block.style.backgroundColor = "#538D4E";
@@ -80,6 +78,8 @@ function appStart() {
                         block.style.color = "white";
                     }
                 })
+
+                block.classList.add("shake");
             }
         }
         if (맞은_수 === 5) gameOver();
