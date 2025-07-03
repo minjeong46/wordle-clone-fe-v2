@@ -44,7 +44,7 @@ main {
 .key-box__item {
     width: 45px;
     height: 60px;
-    background-color: #dedede;
+    background-color: #cecece;
     border-radius: 10%;
     display: flex;
     justify-content: center;

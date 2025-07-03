@@ -19,48 +19,71 @@ function appStart() {
         count = 0;
     };
 
-    const handleKeyInput = (e) => {
-        const keyItem = document.querySelector(
+    const handleKeyInput = (key) => {
+        const block = document.querySelector(
             `.block-box__item[data-item='${rowCount}${count}']`
         );
-        if (e.key === "Backspace") handelKeyBackspace();
+
+        if (key === "Backspace") handelKeyBackspace();
         if (count === 5) {
-            if (e.key === "Enter") handleKeyEnterInput();
+            if (key === "Enter") handleKeyEnterInput();
             else return;
-        } else if (e.key >= "a" && e.key <= "z") {
-            keyItem.innerHTML = e.key;
+        } else if (key >= "a" && key <= "z") {
+            block.innerHTML = key;
             count++;
         }
-    };
+        
+    }
 
-    const handleKeyEnterInput = (e) => {
+    const handleKeyEnterInput = () => {
         let 맞은_수 = 0;
         for (let i = 0; i < 5; i++) {
-            const keyItem = document.querySelector(
+            const block = document.querySelector(
                 `.block-box__item[data-item='${rowCount}${i}']`
             );
 
-            const 입력_정답 = keyItem.innerHTML;
+            
 
+            const 입력_정답 = block.innerHTML;
             const 정답_글자 = 정답[i];
 
-            // console.log(입력_정답, 정답_글자);
             if (입력_정답 === 정답_글자) {
-                keyItem.style.backgroundColor = "#B49F3A";
-                keyItem.style.color = "white";
+                block.style.backgroundColor = "#B49F3A";
+                block.style.color = "white";
+
+                document.querySelectorAll(`.key-box__item`).forEach((e)=>{
+                    if(e.dataset.key === 정답_글자){
+                        e.style.backgroundColor = "#B49F3A";
+                        block.style.color = "white";
+                    }
+
+                })
+                
                 맞은_수++;
             } else if (정답.includes(입력_정답)) {
-                keyItem.style.backgroundColor = "#538D4E";
-                keyItem.style.color = "white";
+                block.style.backgroundColor = "#538D4E";
+                block.style.color = "white";
+
+                document.querySelectorAll(`.key-box__item`).forEach((e)=>{
+                    if(e.dataset.key === 입력_정답){
+                        e.style.backgroundColor = "#538D4E";
+                        block.style.color = "white";
+                    }
+                })
             } else {
-                keyItem.style.backgroundColor = "#3A3A3C";
-                keyItem.style.color = "white";
+                block.style.backgroundColor = "#3A3A3C";
+                block.style.color = "white";
+
+                document.querySelectorAll(`.key-box__item`).forEach((e)=>{
+                    if(e.dataset.key === 입력_정답){
+                        e.style.backgroundColor = "#efefef";
+                        block.style.color = "white";
+                    }
+                })
             }
         }
         if (맞은_수 === 5) gameOver();
-        else {
-            nextLine();
-        }
+        else nextLine();
     };
 
     const handelKeyBackspace = () => {
@@ -95,7 +118,14 @@ function appStart() {
     };
 
     startTimer();
-    window.addEventListener("keydown", handleKeyInput);
+    window.addEventListener("keydown", (e) => {
+        const key = e.key;
+        handleKeyInput(key);
+    });
+    window.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
+        handleKeyInput(key);
+    });
 }
 
 appStart();
